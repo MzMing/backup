@@ -22,6 +22,7 @@ import java.util.List;
  * @create 2018-11-13 9:56
  */
 @Service
+@Transactional
 public class BrandService {
 
     @Autowired
@@ -44,12 +45,12 @@ public class BrandService {
         // 查询
         Page<Brand> pageInfo = (Page<Brand>) brandMapper.selectByExample(example);
         // 返回结果
-        System.out.println(pageInfo.getTotal());
-        System.out.println(pageInfo);
+//        System.out.println(pageInfo.getTotal());
+//        System.out.println(pageInfo);
         return new PageResult<>(pageInfo.getTotal(), pageInfo);
     }
 
-    @Transactional
+
     public void saveBrand(Brand brand, List<Long> cids) {
         // 新增品牌信息
         this.brandMapper.insertSelective(brand);
@@ -57,5 +58,13 @@ public class BrandService {
         for (Long cid : cids) {
             this.brandMapper.insertCategoryBrand(cid, brand.getId());
         }
+    }
+
+
+    public void deleteBrand(Long id) {
+        Brand brand = new Brand();
+        brand.setId(id);
+        this.brandMapper.delete(brand);
+        this.brandMapper.deleteCategoryBrand(id);
     }
 }

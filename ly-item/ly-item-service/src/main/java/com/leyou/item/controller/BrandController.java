@@ -50,4 +50,11 @@ public class BrandController {
         this.brandService.saveBrand(brand, cids);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteBrand(@RequestParam("id")Long id){
+        System.out.println(id);
+        this.brandService.deleteBrand(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
