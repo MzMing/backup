@@ -67,4 +67,9 @@ public class BrandService {
         this.brandMapper.delete(brand);
         this.brandMapper.deleteCategoryBrand(id);
     }
+
+
+    public List<Brand> queryBrandByCategory(Long cid) {
+        return this.brandMapper.queryByCategoryId(cid);
+    }
 }
